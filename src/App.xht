@@ -85,7 +85,7 @@
     <div class="flex border border-search hover:border-opacity-50 rounded-full hover:shadow-search p-2 text-md w-full md:w-xl">
       <Search/>
       {#if query}
-        <div class="w-full outline-none px-3">{value}</div>
+        <div class="w-full outline-none px-3 truncate">{value}</div>
       {:else}
         <input type="text" class="w-full outline-none px-3" placeholder="" title="Поиск" bind:value={value} on:keypress={keypressHandler}>
       {/if}
