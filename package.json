@@ -1,0 +1,19 @@
+{
+	"version": "1.0.0",
+	"name": "google",
+	"scripts": {
+		"dev": "MODE=dev vite",
+		"build": "vite build",
+		"preview": "vite preview"
+	},
+	"devDependencies": {
+		"vite": "^2.3.7",
+		"vite-plugin-windicss": "^1.0.4"
+	},
+	"dependencies": {
+		"malinajs": "^0.6.26",
+		"vite-plugin-html": "^2.0.7",
+		"vite-plugin-singlefile": "^0.5.1",
+		"windicss": "^3.1.3"
+	}
+}

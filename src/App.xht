@@ -1,0 +1,126 @@
+<script>
+  import logo from './assets/logo'
+	import Mic from './lib/MicIcon.xht'
+	import Search from './lib/SearchIcon.xht'
+	import Menu from './lib/MenuIcon.xht'
+
+  let hint = '', value = '', link = '';
+  
+  const q = (new URL(document.location.href)).searchParams.get('q')
+  const query = q ? decodeURIComponent(q) : null;
+
+  const submit = () => {
+    link = document.location.origin + '/?q=' + encodeURIComponent(value);
+    hint = 'Поделитесь ссылкой:'
+  };
+
+  const randInt = (min, max) => Math.round(min - 0.5 + Math.random() * (max - min + 1))
+
+  const keypressHandler = (e) => {
+    if(query === null && e.keyCode === 13){ 
+      submit()
+    }
+  };
+
+  const copyHandler = async () => {
+    await navigator.clipboard.writeText(link)
+  };
+
+  if(!query){
+    hint = 'Введи запрос и нажми кнопку поиска'
+  }
+
+  function type(letter = undefined, delay = 95) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => resolve (value += letter), delay);
+    })
+  }
+
+  const typewriter = async (char) => {
+    for (const letter of char) {
+      const delay = await Math.min(((95 * Math.random()) + 95), 125);
+      await type(letter, delay);
+    }
+  }
+
+  const sleep = ms => new Promise(f => setTimeout(f, ms));
+
+  async function onMount() {
+   if(query){
+      hint = 'Шаг 1. Введите запрос.'
+      await typewriter(query)
+      await sleep(300)
+      hint = 'Шаг 2. Нажмите на кнопку.'
+      await sleep(2050)
+      hint = 'Разве это так трудно?'
+      await sleep(2050)
+      document.location.href = 'https://google.com/search?q=' + q
+    }
+  };
+</script>
+
+<header class="flex justify-end flex-grow-0 flex-shrink-0 mt-2 text-sm text-gray-700">
+  <div class="items-center hidden md:flex">
+    <a class="block p-3">Почта</a>
+    <a class="block p-3">Картинки</a>
+    <span class="px-4 btn-login text-center rounded leading-tight text-white py-2 mx-2 tracking-wide cursor-pointer leading-tight min-w-20 select-none">
+		  Войти
+	  </span>
+  </div>
+  <div class="flex md:hidden justify-between items-center w-full p-2">
+    <div class="flex justify-between items-center" style="color: #70757a;">
+      <Menu/>
+      <p class="uppercase ml-4 mx-2 font-medium text-blue-500 underline header__all">Всё</p>
+      <p class="uppercase mx-2 font-medium">Картинки</p>
+    </div>
+    <span class="px-4 btn-login text-center rounded leading-tight text-white py-2 mx-2 tracking-wide cursor-pointer leading-tight min-w-20 select-none">
+		  Войти
+	  </span>
+  </div>
+</header>
+
+<main class="flex flex-col justify-center items-center flex-shrink-0 flex-grow pb-24">
+  <div class="flex justify-center items-center flex-col md:w-lg relative -mt-20 p-2">
+    <img class="transform scale-125 md:scale-100 w-2/3 ml-auto mr-auto mb-6" src={logo} alt="Давай я поищу в Google вместо тебя">
+    <div class="flex border border-search hover:border-opacity-50 rounded-full hover:shadow-search p-2 text-md w-full md:w-xl">
+      <Search/>
+      {#if query}
+        <span class="w-full outline-none px-3">{value}</span>
+      {:else}
+        <input type="text" class="w-full outline-none px-3" placeholder="" title="Поиск" bind:value={value} on:keypress={keypressHandler}>
+      {/if}
+      <Mic/>
+    </div>
+    <div class="mt-8 text-center hidden md:block">
+      <button class="bg-light-300 border-1 border-light-300 hover:border-light-500 hover:shadow-lucky focus:outline-none focus:border-blue-500 py-1 px-3 rounded" on:click={submit}>Поиск в Google</button>
+      <button class="bg-light-300 border-1 border-light-300 hover:border-light-900 hover:shadow-lucky focus:outline-none focus:border-blue-500 py-1 px-3 rounded">Мне повезёт!</button>
+    </div>
+    <p class="text-green-500 mt-4">{hint}</p>
+    {#if link}
+      <input class="p-4 w-2/3" type="text" value={link} on:input={e => e.preventDefault()}/>
+      <button on:click={copyHandler} class="px-4 btn-login text-center rounded leading-tight text-white py-2 mx-2 tracking-wide cursor-pointer leading-tight min-w-20 select-none">
+        Скопировать
+      </button>
+    {/if}
+  </div>
+</main>
+
+<footer class="flex justify-between flex-grow-0 flex-shrink-0 min-h-10 bg-light-500 border-t border-light-900 w-full text-gray-600 text-xs">
+  <div class="hidden md:flex">
+    <a class="block p-3">Реклама</a>
+    <a class="block p-3">Для бизнеса</a>
+    <a class="block p-3">Как работает Google Поиск</a>
+  </div>
+  <div class="hidden md:flex">
+    <a class="block p-3">Конфиденциальность</a>
+    <a class="block p-3">Условия</a>
+    <a class="block p-3">Настройки</a>
+  </div>
+  <span class="flex md:hidden justify-center items-center w-full">
+    <svg width="16" height="16" fill="none" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="7.25" fill="currentColor" ></circle>
+    </svg>
+    <span class="font-medium">Неизвестно</span>
+    <span> - учитывать моё местоположение</span>
+  </span>
+</footer>
