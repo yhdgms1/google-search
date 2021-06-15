@@ -1,26 +1,36 @@
 # Google
 
-_inspired by http://google.gik-team.com/_
+_вдохновлено https://google.gik-team.com/_
 
-## Get started
+## Предисловие
+
+Увидев "Давай я поищу в Google вместо тебя" от [GIK-Team](https://gik-team.com/), мне захотелось сделать свою версию этого сайта, и вот она, в этом репозитории.
+
+## Использование
+
+Чтобы сделать ссылку нужно ввести нужный запрос и нажать клавишу Enter или кнопку "Поиск в Google", затем появится ссылка, которую можно скопировать
+
+## Разработка и сборка
+
+Для начала нужно установить зависимости
 
 ```bash
-npm install # or yarn or pnpm
+npm i # А ещё можно написать yarn install или pnpm i (i сокращённо от install)
 ```
 
-Run in dev mode
+Запуск в режиме разработки
 
 ```bash
 npm run dev
 ```
 
-Build
+Cборка
 
 ```bash
 npm run build
 ```
 
-Preview
+Предпросмотр. Неплохо посмотреть, что вы там собрали
 
 ```bash
 npm run preview
