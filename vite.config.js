@@ -7,27 +7,27 @@ import { default as windiCSSPlugin } from 'vite-plugin-windicss'
 const DEV = process.env.MODE === 'dev'
 
 export default defineConfig({
-	plugins: [
-		malinaPlugin({
-			extension: ['ma', 'xht'],
-		}),
-		windiCSSPlugin({
-			scan: {
-				fileExtensions: ['html', 'ma', 'xht'],
-			},
-		}),
-		!DEV && viteSingleFile(),
-		!DEV && minifyHtml()
-	],
-	build: {
-		target: 'esnext',
-		polyfillDynamicImport: false,
-		cssCodeSplit: false,
-		rollupOptions: {
-			inlineDynamicImports: true,
-			output: {
-				manualChunks: () => "everything.js",
-			},
-		},
-	},
+  plugins: [
+    malinaPlugin({
+      extension: ['ma', 'xht'],
+    }),
+    windiCSSPlugin({
+      scan: {
+        fileExtensions: ['html', 'ma', 'xht'],
+      },
+    }),
+    !DEV && viteSingleFile(),
+    !DEV && minifyHtml(),
+  ],
+  build: {
+    target: 'esnext',
+    polyfillDynamicImport: false,
+    cssCodeSplit: false,
+    rollupOptions: {
+      inlineDynamicImports: true,
+      output: {
+        manualChunks: () => 'everything.js',
+      },
+    },
+  },
 })

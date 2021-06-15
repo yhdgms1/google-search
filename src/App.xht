@@ -1,71 +1,70 @@
 <script>
-  import logo from './assets/logo'
-	import Mic from './lib/MicIcon.xht'
-	import Search from './lib/SearchIcon.xht'
-	import Menu from './lib/MenuIcon.xht'
+import logo from './assets/logo'
+import Mic from './lib/MicIcon.xht'
+import Search from './lib/SearchIcon.xht'
+import Menu from './lib/MenuIcon.xht'
 
-  let hint = '', value = '', link = '';
-  
-  const q = (new URL(document.location.href)).searchParams.get('q')
-  const query = q ? decodeURIComponent(q) : null;
+let hint = '',
+  value = '',
+  link = ''
 
-  const submit = () => {
-    link = document.location.origin + '/?q=' + encodeURIComponent(value);
-    hint = 'Поделитесь ссылкой:'
-  };
+const q = new URL(document.location.href).searchParams.get('q')
+const query = q ? decodeURIComponent(q) : null
 
-  const randInt = (min, max) => Math.round(min - 0.5 + Math.random() * (max - min + 1))
+const submit = () => {
+  link = document.location.origin + '/?q=' + encodeURIComponent(value)
+  hint = 'Поделитесь ссылкой:'
+}
 
-  const keypressHandler = (e) => {
-    if(query === null && e.keyCode === 13){ 
-      submit()
-    }
-  };
-
-  const copyHandler = async () => {
-    await navigator.clipboard.writeText(link)
-  };
-
-  if(!query){
-    hint = 'Введи запрос и нажми кнопку поиска'
+const keypressHandler = (e) => {
+  if (query === null && e.keyCode === 13) {
+    submit()
   }
+}
 
-  function type(letter = undefined, delay = 95) {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => resolve (value += letter), delay);
-    })
+const copyHandler = async () => {
+  await navigator.clipboard.writeText(link)
+}
+
+function type(letter = undefined, delay = 95) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => resolve((value += letter)), delay)
+  })
+}
+
+const typewriter = async (char) => {
+  for (const letter of char) {
+    const delay = await Math.min(95 * Math.random() + 95, 125)
+    await type(letter, delay)
   }
+}
 
-  const typewriter = async (char) => {
-    for (const letter of char) {
-      const delay = await Math.min(((95 * Math.random()) + 95), 125);
-      await type(letter, delay);
-    }
+const sleep = (ms) => new Promise((f) => setTimeout(f, ms))
+
+if (!query) {
+  hint = 'Введи запрос и нажми кнопку поиска'
+}
+
+async function onMount() {
+  if (query) {
+    hint = 'Шаг 1. Введите запрос.'
+    await typewriter(query)
+    await sleep(300)
+    hint = 'Шаг 2. Нажмите на кнопку.'
+    await sleep(2050)
+    hint = 'Разве это так трудно?'
+    await sleep(2050)
+    document.location.href = 'https://google.com/search?q=' + q
   }
-
-  const sleep = ms => new Promise(f => setTimeout(f, ms));
-
-  async function onMount() {
-   if(query){
-      hint = 'Шаг 1. Введите запрос.'
-      await typewriter(query)
-      await sleep(300)
-      hint = 'Шаг 2. Нажмите на кнопку.'
-      await sleep(2050)
-      hint = 'Разве это так трудно?'
-      await sleep(2050)
-      document.location.href = 'https://google.com/search?q=' + q
-    }
-  };
+}
 </script>
-
 <header class="flex justify-end flex-grow-0 flex-shrink-0 mt-2 text-sm text-gray-700">
   <div class="items-center hidden md:flex">
     <a class="block p-3">Почта</a>
     <a class="block p-3">Картинки</a>
     <span class="px-4 btn-login text-center rounded leading-tight text-white py-2 mx-2 tracking-wide cursor-pointer leading-tight min-w-20 select-none">
-		  Войти
-	  </span>
+    Войти
+    </span>
   </div>
   <div class="flex md:hidden justify-between items-center w-full p-2">
     <div class="flex justify-between items-center" style="color: #70757a;">
@@ -74,11 +73,10 @@
       <p class="uppercase mx-2 font-medium">Картинки</p>
     </div>
     <span class="px-4 btn-login text-center rounded leading-tight text-white py-2 mx-2 tracking-wide cursor-pointer leading-tight min-w-20 select-none">
-		  Войти
-	  </span>
+    Войти
+    </span>
   </div>
 </header>
-
 <main class="flex flex-col justify-center items-center flex-shrink-0 flex-grow pb-24">
   <div class="flex justify-center items-center flex-col w-full md:w-lg relative -mt-20 p-2">
     <img class="transform scale-125 md:scale-100 w-2/3 ml-auto mr-auto mb-6" src={logo} alt="Давай я поищу в Google вместо тебя">
@@ -99,12 +97,11 @@
     {#if link}
       <input class="p-4 w-2/3" type="text" value={link} on:input={e => e.preventDefault()}/>
       <button on:click={copyHandler} class="px-4 btn-login text-center rounded leading-tight text-white py-2 mx-2 tracking-wide cursor-pointer leading-tight min-w-20 select-none">
-        Скопировать
+      Скопировать
       </button>
     {/if}
   </div>
 </main>
-
 <footer class="flex justify-between flex-grow-0 flex-shrink-0 min-h-10 bg-light-500 border-t border-light-900 w-full text-gray-600 text-xs">
   <div class="hidden md:flex">
     <a class="block p-3">Реклама</a>
