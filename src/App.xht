@@ -12,8 +12,10 @@ const q = new URL(document.location.href).searchParams.get('q')
 const query = q ? decodeURIComponent(q) : null
 
 const submit = () => {
-  link = document.location.origin + '/?q=' + encodeURIComponent(value)
-  hint = 'Поделитесь ссылкой:'
+  if(value !== ''){
+    link = document.location.origin + '/?q=' + encodeURIComponent(value)
+    hint = 'Поделитесь ссылкой:'
+  }
 }
 
 const keypressHandler = (e) => {
@@ -34,7 +36,7 @@ function type(letter = undefined, delay = 95) {
 
 const typewriter = async (char) => {
   for (const letter of char) {
-    const delay = await Math.min(95 * Math.random() + 95, 125)
+    const delay = Math.min(95 * Math.random() + 95, 125)
     await type(letter, delay)
   }
 }
@@ -90,9 +92,9 @@ async function onMount() {
       {/if}
       <Mic/>
     </div>
-    <div class="mt-8 text-center">
-      <button id="search-button" type="button" class="bg-light-300 border-1 border-light-300 hover:border-light-500 hover:shadow-lucky focus:outline-none focus:border-blue-500 py-1 px-3 rounded" on:click={submit}>Поиск в Google</button>
-      <span class="bg-light-300 border-1 border-light-300 hover:border-light-900 hover:shadow-lucky focus:outline-none focus:border-blue-500 py-1 px-3 rounded">Мне повезёт!</span>
+    <div class="mt-8 text-center flex">
+      <button id="search-button" type="button" class="mr-1 leading-normal bg-light-300 border-1 border-light-300 hover:border-light-500 hover:shadow-lucky focus:outline-none focus:border-blue-500 py-1 px-3 rounded" on:click={submit}>Поиск в Google</button>
+      <div class="ml-1 leading-normal bg-light-300 border-1 border-light-300 hover:border-light-500 hover:shadow-lucky focus:outline-none focus:border-blue-500 py-1 px-3 rounded">Мне повезёт!</div>
     </div>
     <p class="text-green-500 mt-4">{hint}</p>
     {#if link}
