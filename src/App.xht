@@ -51,6 +51,7 @@ async function onMount() {
     await typewriter(query)
     await sleep(300)
     hint = 'Шаг 2. Нажмите на кнопку.'
+    document.getElementById('search-button').focus()
     await sleep(2050)
     hint = 'Разве это так трудно?'
     await sleep(2050)
@@ -62,7 +63,7 @@ async function onMount() {
   <div class="items-center hidden md:flex">
     <a class="block p-3">Почта</a>
     <a class="block p-3">Картинки</a>
-    <span class="px-4 btn-login text-center rounded leading-tight text-white py-2 mx-2 tracking-wide cursor-pointer leading-tight min-w-20 select-none">
+    <span class="px-4 btn-login text-center rounded leading-tight text-white py-2 mx-2 tracking-wide cursor-pointer min-w-20 select-none">
     Войти
     </span>
   </div>
@@ -72,7 +73,7 @@ async function onMount() {
       <p class="uppercase ml-4 mx-2 font-medium text-blue-500 underline header__all">Всё</p>
       <p class="uppercase mx-2 font-medium">Картинки</p>
     </div>
-    <span class="px-4 btn-login text-center rounded leading-tight text-white py-2 mx-2 tracking-wide cursor-pointer leading-tight min-w-20 select-none">
+    <span class="px-4 btn-login text-center rounded leading-tight text-white py-2 mx-2 tracking-wide cursor-pointer min-w-20 select-none">
     Войти
     </span>
   </div>
@@ -89,14 +90,14 @@ async function onMount() {
       {/if}
       <Mic/>
     </div>
-    <div class="mt-8 text-center hidden md:block">
-      <button type="button" class="bg-light-300 border-1 border-light-300 hover:border-light-500 hover:shadow-lucky focus:outline-none focus:border-blue-500 py-1 px-3 rounded" on:click={submit}>Поиск в Google</button>
-      <button type="button" class="bg-light-300 border-1 border-light-300 hover:border-light-900 hover:shadow-lucky focus:outline-none focus:border-blue-500 py-1 px-3 rounded">Мне повезёт!</button>
+    <div class="mt-8 text-center">
+      <button id="search-button" type="button" class="bg-light-300 border-1 border-light-300 hover:border-light-500 hover:shadow-lucky focus:outline-none focus:border-blue-500 py-1 px-3 rounded" on:click={submit}>Поиск в Google</button>
+      <span class="bg-light-300 border-1 border-light-300 hover:border-light-900 hover:shadow-lucky focus:outline-none focus:border-blue-500 py-1 px-3 rounded">Мне повезёт!</span>
     </div>
     <p class="text-green-500 mt-4">{hint}</p>
     {#if link}
       <input class="p-4 w-2/3" type="text" value={link} on:input={e => e.preventDefault()}/>
-      <button on:click={copyHandler} class="px-4 btn-login text-center rounded leading-tight text-white py-2 mx-2 tracking-wide cursor-pointer leading-tight min-w-20 select-none">
+      <button on:click={copyHandler} class="px-4 btn-login text-center rounded leading-tight text-white py-2 mx-2 tracking-wide cursor-pointer min-w-20 select-none">
       Скопировать
       </button>
     {/if}
