@@ -46,7 +46,10 @@ async function onMount() {
     await typewriter(query)
     await sleep(300)
     hint = 'Шаг 2. Нажмите на кнопку.'
-    document.getElementById('search-button').focus()
+    const searchButton = document.getElementById('search-button');
+    searchButton.focus()
+    // In firefox (android) focus sometimes not work
+    searchButton.classList.add('border-blue-500')
     await sleep(2050)
     hint = 'Разве это так трудно?'
     await sleep(2050)
