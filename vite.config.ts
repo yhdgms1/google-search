@@ -10,6 +10,8 @@ export default defineConfig({
   plugins: [
     malinaPlugin({
       extension: ['ma', 'xht'],
+      displayVersion: false,
+      compact: true,
     }),
     windiCSSPlugin({
       scan: {

@@ -3,7 +3,7 @@ import colors from 'windicss/colors'
 
 export default defineConfig({
   extract: {
-    include: ['./**/*.html', './**/*.xht', './**/*.ma', 'index.html', './**/*.js'],
+    include: ['./**/*.html', './**/*.xht', './**/*.ma', './*.html',],
   },
   theme: {
     colors: {
