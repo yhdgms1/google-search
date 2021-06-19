@@ -1,8 +1,6 @@
 <script>
 import logo from './assets/logo'
-import Mic from './lib/MicIcon.xht'
-import Search from './lib/SearchIcon.xht'
-import Menu from './lib/MenuIcon.xht'
+import { MenuIcon, MicIcon, SearchIcon } from './lib/icons'
 
 let hint = '',
   value = '',
@@ -18,7 +16,7 @@ const submit = () => {
   }
 }
 
-const keypressHandler = (e) => (query === null && e.keyCode === 13) && submit()
+const keypressHandler = (e) => (query === null) && submit()
 
 const copyHandler = async () => {
   await navigator.clipboard.writeText(link)
@@ -57,62 +55,62 @@ async function onMount() {
   }
 }
 </script>
-<header class="flex justify-end flex-grow-0 flex-shrink-0 mt-2 text-sm text-gray-700">
+<header class="flex flex-grow-0 flex-shrink-0 mt-2 text-sm text-gray-700 justify-end">
   <div class="items-center hidden md:flex">
-    <a class="block p-3">Почта</a>
-    <a class="block p-3">Картинки</a>
-    <span class="px-4 btn-login text-center rounded leading-tight text-white py-2 mx-2 tracking-wide cursor-pointer min-w-20 select-none">
+    <a class="p-3 block">Почта</a>
+    <a class="p-3 block">Картинки</a>
+    <span class="rounded cursor-pointer mx-2 text-center text-white leading-tight tracking-wide min-w-20 py-2 px-4 btn-login select-none">
     Войти
     </span>
   </div>
-  <div class="flex md:hidden justify-between items-center w-full p-2">
+  <div class="flex w-full p-2 md:hidden justify-between items-center">
     <div class="flex justify-between items-center" style="color: #70757a;">
-      <Menu/>
-      <p class="uppercase ml-4 mx-2 font-medium text-blue-500 underline underline-offset-0.5rem">Всё</p>
-      <p class="uppercase mx-2 font-medium">Картинки</p>
+      {@html MenuIcon}
+      <p class="font-medium mx-2 ml-4 text-blue-500 uppercase underline underline-offset-0.5rem">Всё</p>
+      <p class="font-medium mx-2 uppercase">Картинки</p>
     </div>
-    <span class="px-4 btn-login text-center rounded leading-tight text-white py-2 mx-2 tracking-wide cursor-pointer min-w-20 select-none">
+    <span class="rounded cursor-pointer mx-2 text-center text-white leading-tight tracking-wide min-w-20 py-2 px-4 btn-login select-none">
     Войти
     </span>
   </div>
 </header>
-<main class="flex flex-col justify-center items-center flex-shrink-0 flex-grow pb-24">
-  <div class="flex justify-center items-center flex-col w-full md:w-lg relative -mt-20 p-2">
-    <img class="transform scale-125 sm:scale-100 w-2/3 ml-auto mr-auto min-h-24" alt="Давай я поищу в Google вместо тебя" src={logo}>
-    <div class="flex justify-between items-center border border-search hover:border-opacity-50 rounded-full hover:shadow-search p-2 my-4 text-md w-full md:w-xl">
-      <Search/>
+<main class="flex flex-col flex-grow flex-shrink-0 pb-24 justify-center items-center">
+  <div class="flex flex-col -mt-20 w-full p-2 justify-center items-center md:w-lg relative">
+    <img class="mr-auto ml-auto min-h-24 transform w-2/3 scale-125 sm:scale-100" alt="Давай я поищу в Google вместо тебя" src={logo}>
+    <div class="border border-search rounded-full flex my-4 text-md w-full p-2 justify-between items-center hover:shadow-search md:w-xl hover:border-opacity-50">
+      {@html SearchIcon}
       {#if query}
-        <p class="md:min-w-sm w-full outline-none px-2 truncate leading-tight">{value || ' '}</p>
+        <p class="outline-none leading-tight w-full px-2 md:min-w-sm truncate">{value || ' '}</p>
       {:else}
-        <input type="text" class="md:min-w-sm w-full outline-none px-2 leading-tight" placeholder="" autofocus title="Поиск" bind:value={value} on:keypress={keypressHandler}>
+        <input type="text" class="outline-none leading-tight w-full px-2 md:min-w-sm" placeholder="" autofocus title="Поиск" bind:value={value} on:keypress|enter={keypressHandler}>
       {/if}
-      <Mic/>
+      {@html MicIcon}
     </div>
-    <div class="text-center flex">
-      <button id="search-button" type="button" class="mr-1 leading-normal bg-light-300 border-1 border-light-300 hover:border-light-500 hover:shadow-lucky focus:outline-none focus:border-blue-500 py-1 px-3 rounded" on:click={submit}>Поиск в Google</button>
-      <div class="ml-1 leading-normal bg-light-300 border-1 border-light-300 hover:border-light-500 hover:shadow-lucky focus:outline-none focus:border-blue-500 py-1 px-3 rounded cursor-pointer">Мне повезёт!</div>
+    <div class="flex text-center">
+      <button id="search-button" type="button" class="rounded bg-light-300 border-1 border-light-300 mr-1 leading-normal py-1 px-3 hover:shadow-lucky focus:outline-none hover:border-light-500 focus:border-blue-500" on:click={submit}>Поиск в Google</button>
+      <div class="rounded cursor-pointer bg-light-300 border-1 border-light-300 leading-normal ml-1 py-1 px-3 hover:shadow-lucky focus:outline-none hover:border-light-500 focus:border-blue-500">Мне повезёт!</div>
     </div>
-    <p class="text-green-500 mt-4">{hint}</p>
+    <p class="mt-4 text-green-500">{hint}</p>
     {#if link}
-      <input class="px-4 py-2 w-2/3" type="text" value={link} on:input={e => e.preventDefault()}/>
-      <button on:click={copyHandler} class="px-4 btn-login text-center rounded leading-tight text-white py-2 mx-2 tracking-wide cursor-pointer min-w-20 select-none">
+      <input class="py-2 px-4 w-2/3" type="text" value={link} on:input={e => e.preventDefault()}/>
+      <button on:click={copyHandler} class="rounded cursor-pointer mx-2 text-center text-white leading-tight tracking-wide min-w-20 py-2 px-4 btn-login select-none">
       Скопировать
       </button>
     {/if}
   </div>
 </main>
-<footer class="flex justify-between flex-grow-0 flex-shrink-0 min-h-10 bg-light-500 border-t border-light-900 w-full text-gray-600 text-xs">
+<footer class="border-t flex bg-light-500 border-light-900 flex-grow-0 flex-shrink-0 text-xs min-h-10 w-full text-gray-600 justify-between">
   <div class="hidden md:flex">
-    <a class="block p-3">Реклама</a>
-    <a class="block p-3">Для бизнеса</a>
-    <a class="block p-3">Как работает Google Поиск</a>
+    <a class="p-3 block">Реклама</a>
+    <a class="p-3 block">Для бизнеса</a>
+    <a class="p-3 block">Как работает Google Поиск</a>
   </div>
   <div class="hidden md:flex">
-    <a class="block p-3">Конфиденциальность</a>
-    <a class="block p-3">Условия</a>
-    <a class="block p-3">Настройки</a>
+    <a class="p-3 block">Конфиденциальность</a>
+    <a class="p-3 block">Условия</a>
+    <a class="p-3 block">Настройки</a>
   </div>
-  <span class="flex md:hidden justify-center items-center w-full">
+  <span class="flex w-full md:hidden justify-center items-center">
     <svg width="16" height="16" fill="none" viewBox="0 0 24 24">
       <circle cx="12" cy="12" r="7.25" fill="currentColor" ></circle>
     </svg>
