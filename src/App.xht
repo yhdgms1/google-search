@@ -1,7 +1,8 @@
 <script>
 let hint = '',
   value = '',
-  link = ''
+  link = '',
+  searchButton
 
 const q = new URL(document.location.href).searchParams.get('q')
 const query = q ? decodeURIComponent(q) : null
@@ -41,7 +42,6 @@ async function onMount() {
     await typewriter(query)
     await sleep(300)
     hint = 'Шаг 2. Нажмите на кнопку.'
-    const searchButton = document.getElementById('search-button');
     searchButton.focus()
     // In firefox (android) focus sometimes not work
     searchButton.classList.add('border-blue-500')
@@ -70,7 +70,7 @@ async function onMount() {
   </svg>
 </div>
 <div class="flex text-center">
-  <button id="search-button" type="button" class="rounded bg-light-300 border-1 border-light-300 mr-1 leading-normal py-1 px-3 hover:shadow-lucky focus:outline-none hover:border-light-500 focus:border-blue-500" on:click={submit}>Поиск в Google</button>
+  <button #searchButton type="button" class="rounded bg-light-300 border-1 border-light-300 mr-1 leading-normal py-1 px-3 hover:shadow-lucky focus:outline-none hover:border-light-500 focus:border-blue-500" on:click={submit}>Поиск в Google</button>
   <div class="rounded cursor-pointer bg-light-300 border-1 border-light-300 leading-normal ml-1 py-1 px-3 hover:shadow-lucky focus:outline-none hover:border-light-500 focus:border-blue-500">Мне повезёт!</div>
 </div>
 <p class="mt-4 text-green-500">{hint}</p>
