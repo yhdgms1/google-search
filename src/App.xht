@@ -16,15 +16,11 @@ const submit = () => {
 
 const keypressHandler = (e) => (query === null) && submit()
 
-const copyHandler = async () => {
-  await navigator.clipboard.writeText(link)
-}
-
-const type = (letter = '', delay = 95) => new Promise((resolve, reject) => setTimeout(() => resolve((value += letter)), delay)) 
+const type = (letter = '', delay) => new Promise((resolve, reject) => setTimeout(() => resolve((value += letter)), delay)) 
 
 const typewriter = async (char) => {
   for (const letter of char) {
-    const delay = Math.min(95 * Math.random() + 95, 125)
+    const delay = Math.min(100 * Math.random() + 100, 140)
     await type(letter, delay)
   }
 }
@@ -60,7 +56,7 @@ async function onMount() {
   {#if query}
     <p class="outline-none leading-tight w-full px-2 md:min-w-sm truncate">{value || ' '}</p>
   {:else}
-    <input type="text" class="outline-none leading-tight w-full px-2 md:min-w-sm" placeholder="" autofocus title="Поиск" bind:value={value} on:keypress|enter={keypressHandler}>
+    <input type="text" class="outline-none leading-tight w-full px-2 md:min-w-sm" placeholder="" autofocus title="Поиск" on:input={e => value = e.target.value} on:keypress|enter={keypressHandler}>
   {/if}
   <svg class="mr-1 hidden md:block" width="24" focusable="false" viewBox="0 0 22 22">
     <path fill="#4285f4" d="m12 15c1.66 0 3-1.31 3-2.97v-7.02c0-1.66-1.34-3.01-3-3.01s-3 1.34-3 3.01v7.02c0 1.66 1.34 2.97 3 2.97z"></path>
@@ -75,8 +71,8 @@ async function onMount() {
 </div>
 <p class="mt-4 text-green-500">{hint}</p>
 {#if link}
-  <input class="py-2 px-4 w-2/3" type="text" value={link} on:input={e => e.preventDefault()}/>
-  <button on:click={copyHandler} class="rounded cursor-pointer mx-2 text-center text-white leading-tight tracking-wide min-w-20 py-2 px-4 btn-login select-none">
+  <input class="py-2 px-4 w-2/3" type="text" value={link} readonly/>
+  <button on:click={async () => await navigator.clipboard.writeText(link)} class="rounded cursor-pointer mx-2 text-center text-white leading-tight tracking-wide min-w-20 py-2 px-4 btn-login select-none">
   Скопировать
   </button>
 {/if}
