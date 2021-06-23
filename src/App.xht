@@ -64,10 +64,10 @@ async function onMount() {
   <button #searchButton type="button" class="rounded bg-light-300 border-1 border-light-300 mr-1 leading-normal py-1 px-3 hover:shadow-lucky focus:outline-none hover:border-light-500 focus:border-blue-500" on:click={submit}>Поиск в Google</button>
   <div class="rounded cursor-pointer bg-light-300 border-1 border-light-300 leading-normal ml-1 py-1 px-3 hover:shadow-lucky focus:outline-none hover:border-light-500 focus:border-blue-500">Мне повезёт!</div>
 </div>
-<p class="mt-4 text-green-500">{hint}</p>
+<p class="mt-4" style="color: #018642">{hint}</p>
 {#if link}
   <input class="py-2 px-4 w-2/3" type="text" value={link} readonly/>
-  <button on:click={async () => await navigator.clipboard.writeText(link)} class="rounded cursor-pointer mx-2 text-center text-white leading-tight tracking-wide min-w-20 py-2 px-4 btn-login select-none">
+  <button on:click={async () => await navigator.clipboard.writeText(link)} class="rounded cursor-pointer mx-2 text-center text-white leading-tight tracking-wide min-w-20 py-2 px-4 bg-blue-600 hover:bg-blue-500 active:bg-blue-400 select-none">
   Скопировать
   </button>
 {/if}
