@@ -4,6 +4,14 @@ import colors from 'windicss/colors'
 export default defineConfig({
   extract: {
     include: ['./**/*.html', './**/*.xht', './**/*.ma', './*.html',],
+    extractors: [
+      {
+        extractor: (content) => {
+          return { classes: content.match(/(?<=class:)[!@\w-]+/g) ?? [] }
+        },
+        extensions: ['xht', 'ma'],
+      },
+    ],
   },
   theme: {
     colors: {

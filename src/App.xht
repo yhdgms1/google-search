@@ -14,22 +14,17 @@ const submit = () => {
   }
 }
 
-const keypressHandler = (e) => (query === null) && submit()
-
 const type = (letter = '', delay) => new Promise((resolve, reject) => setTimeout(() => resolve((value += letter)), delay)) 
 
 const typewriter = async (char) => {
   for (const letter of char) {
-    const delay = Math.min(100 * Math.random() + 100, 140)
-    await type(letter, delay)
+    await type(letter, Math.min(100 * Math.random() + 100, 140))
   }
 }
 
 const sleep = (ms) => new Promise((f) => setTimeout(f, ms))
 
-if (!query) {
-  hint = 'Введи запрос и нажми кнопку поиска'
-}
+if (!query) hint = 'Введи запрос и нажми кнопку поиска'
 
 async function onMount() {
   if (query) {
@@ -56,7 +51,7 @@ async function onMount() {
   {#if query}
     <p class="outline-none leading-tight w-full px-2 md:min-w-sm truncate">{value || ' '}</p>
   {:else}
-    <input type="text" class="outline-none leading-tight w-full px-2 md:min-w-sm" placeholder="" autofocus title="Поиск" on:input={e => value = e.target.value} on:keypress|enter={keypressHandler}>
+    <input type="text" class="outline-none leading-tight w-full px-2 md:min-w-sm" placeholder="" autofocus title="Поиск" on:input={e => value = e.target.value} on:keypress|enter={(!query) && submit()}>
   {/if}
   <svg class="mr-1 hidden md:block" width="24" focusable="false" viewBox="0 0 22 22">
     <path fill="#4285f4" d="m12 15c1.66 0 3-1.31 3-2.97v-7.02c0-1.66-1.34-3.01-3-3.01s-3 1.34-3 3.01v7.02c0 1.66 1.34 2.97 3 2.97z"></path>
