@@ -4,25 +4,24 @@ let hint = '',
   link = '',
   searchButton
 
-const q = new URL(document.location.href).searchParams.get('q')
-const query = q || null
+const query = new URL(document.location.href).searchParams.get('q')
 
 const submit = () => {
-  if(value){
+  if (value) {
     link = document.location.origin + '/?q=' + encodeURIComponent(value)
     hint = 'Поделитесь ссылкой:'
   }
 }
 
-const type = (letter = '', delay) => new Promise((resolve, reject) => setTimeout(() => resolve((value += letter)), delay)) 
+const type = (letter = '', delay) => new Promise(resolve => setTimeout(() => resolve((value += letter)), delay))
 
-const typewriter = async (char) => {
-  for (const letter of char) {
+const typewriter = async string => {
+  for (const letter of string) {
     await type(letter, Math.min(100 * Math.random() + 100, 140))
   }
 }
 
-const sleep = (ms) => new Promise((f) => setTimeout(f, ms))
+const sleep = ms => new Promise(f => setTimeout(f, ms))
 
 if (!query) hint = 'Введи запрос и нажми кнопку поиска'
 
@@ -39,7 +38,7 @@ async function onMount() {
     await sleep(2050)
     hint = 'Разве это так трудно?'
     await sleep(2050)
-    document.location.href = 'https://google.com/search?q=' + q
+    document.location.href = 'https://google.com/search?q=' + query
   }
 }
 </script>
