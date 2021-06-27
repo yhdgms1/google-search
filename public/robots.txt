@@ -1,0 +1,14 @@
+# . 　　　。　　　　•　 　ﾟ　　。 　　.
+# 
+# 　　　.　　　 　　.　　　　　。　　 。　. 　
+# 
+# .　　 。　　　　　 ඞ 。 . 　　 • 　　　　•
+# 
+# 　ﾟ Artemis69 was not An Impostor.　 　.
+# 
+# 　　'　　　 1 Impostor remains 　 　　。
+# 
+# 　　ﾟ　　　.　　　. ,　　　　.　 .
+
+User-agent: *
+Disallow:
