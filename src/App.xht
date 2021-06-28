@@ -1,5 +1,5 @@
 <script>
-let hint = '',
+let hint = 'Введи запрос и нажми кнопку поиска',
   value = '',
   link = '',
   searchButton
@@ -23,8 +23,6 @@ const typewriter = async string => {
 
 const sleep = ms => new Promise(f => setTimeout(f, ms))
 
-if (!query) hint = 'Введи запрос и нажми кнопку поиска'
-
 async function onMount() {
   if (query) {
     hint = 'Шаг 1. Введите запрос.'
@@ -40,14 +38,14 @@ async function onMount() {
     await sleep(2050)
     document.location.href = 'https://google.com/search?q=' + query
   }
-}
+};
 </script>
 
-<div class="border border-search rounded-full flex my-4 text-md w-full p-2 justify-between items-center hover:shadow-search md:w-xl hover:border-opacity-50">
+<div class="border border-search rounded-full flex my-4 text-md w-full p-2 dark:border-search-dark justify-between items-center hover:shadow-search hover:border-opacity-50 dark:hover:border-opacity-100">
   <svg class="ml-1" width="24" focusable="false" viewBox="0 0 22 22">
     <path fill="#9aa0a6" d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path>
   </svg>
-  <input type="text" class="outline-none leading-tight w-full px-2 md:min-w-sm" placeholder="" autofocus title="Поиск" readonly={!!query} :value on:keypress|enter={submit} on:focus={e => e.target.parentElement.classList.add('shadow-search', 'border-opacity-50')} on:blur={e => e.target.parentElement.classList.remove('shadow-search', 'border-opacity-50')}>
+  <input type="text" class="outline-none leading-tight w-full px-2 dark:text-light-300 md:min-w-sm dark:bg-dark-600" placeholder="" autofocus title="Поиск" readonly={!!query} :value on:keypress|enter={submit} on:focus={e => e.target.parentElement.classList.add('shadow-search', 'border-opacity-50')} on:blur={e => e.target.parentElement.classList.remove('shadow-search', 'border-opacity-50')}>
   <svg class="mr-1 hidden md:block" width="24" focusable="false" viewBox="0 0 22 22">
     <path fill="#4285f4" d="m12 15c1.66 0 3-1.31 3-2.97v-7.02c0-1.66-1.34-3.01-3-3.01s-3 1.34-3 3.01v7.02c0 1.66 1.34 2.97 3 2.97z"></path>
     <path fill="#34a853" d="m11 18.08h2v3.92h-2z"></path>
@@ -56,12 +54,12 @@ async function onMount() {
   </svg>
 </div>
 <div class="flex text-center">
-  <button #searchButton type="button" class="rounded bg-light-300 border-1 border-light-300 mr-1 leading-normal py-1 px-3 hover:shadow-lucky focus:outline-none hover:border-light-500 focus:border-blue-500" on:click={submit}>Поиск в Google</button>
-  <div class="rounded cursor-pointer bg-light-300 border-1 border-light-300 leading-normal ml-1 py-1 px-3 hover:shadow-lucky focus:outline-none hover:border-light-500 focus:border-blue-500">Мне повезёт!</div>
+  <button #searchButton type="button" class="rounded bg-light-300 border-1 border-light-300 mr-1 leading-normal py-1 px-3 hover:shadow-lucky focus:outline-none dark:bg-dark-200 dark:text-light-200 dark:border-dark-200 hover:border-light-500 dark:hover:border-dark-100 focus:border-blue-500" on:click={submit}>Поиск в Google</button>
+  <div class="cursor-pointer rounded bg-light-300 border-1 border-light-300 mr-1 leading-normal py-1 px-3 hover:shadow-lucky focus:outline-none dark:bg-dark-200 dark:text-light-200 dark:border-dark-200 hover:border-light-500 dark:hover:border-dark-100 focus:border-blue-500">Мне повезёт!</div>
 </div>
-<p class="mt-4 text-green-700">{hint}</p>
+<p class="mt-4 text-green-700 dark:text-green-500">{hint}</p>
 {#if link}
-  <input class="py-2 px-4 w-2/3" type="text" value={link} readonly/>
+  <input class="mb-1 py-2 px-4 text-light-300 w-2/3 dark:bg-dark-400" type="text" value={link} readonly/>
   <button on:click={async () => await navigator.clipboard.writeText(link)} class="rounded cursor-pointer mx-2 text-center text-white leading-tight tracking-wide min-w-20 py-2 px-4 bg-blue-600 hover:bg-blue-500 active:bg-blue-400 select-none">
   Скопировать
   </button>

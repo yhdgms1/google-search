@@ -2,14 +2,12 @@ import { defineConfig } from 'vite-plugin-windicss'
 import colors from 'windicss/colors'
 
 export default defineConfig({
+  darkMode: 'media',
   extract: {
     include: ['./**/*.html', './**/*.xht', './**/*.ma', './*.html'],
   },
   theme: {
-    colors: {
-      white: '#fff',
-      ...colors,
-    },
+    colors,
     boxShadow: {
       search: '0 1px 6px rgb(32 33 36 / 28%)',
       lucky: '0 1px 1px rgb(0 0 0 / 10%)',
@@ -17,6 +15,7 @@ export default defineConfig({
     borderColor: (theme) => ({
       ...theme('colors'),
       search: '#dfe1e5',
+      'search-dark': '#525357'
     }),
   },
 })
