@@ -1,0 +1,66 @@
+.input{
+    @apply outline-none leading-tight w-full px-2 dark:text-light-300 md:min-w-sm dark:bg-google-dark;
+}
+
+.input-container{
+    @apply focus-within:border-opacity-50 border rounded-full flex my-4 text-md w-full p-2 justify-between items-center hover:border-opacity-50 dark:hover:border-opacity-100 dark:hover:google-dark-hover dark:focus-within:google-dark-hover;
+    border: 1px solid #dfe1e5;
+}
+
+@media (prefers-color-scheme: dark) {
+    .input-container{
+        border-color: #5f6368;
+    }
+
+    .input-container:hover{
+        box-shadow: 0 1px 6px 0 #171717;
+        border-color: #dfe1e500;
+        background-color: #303134;
+    }
+
+    .input-container:hover .input{
+        background-color: #303134;
+    }
+
+    .input:focus{
+        background-color: #303134;
+    }
+
+    .input-container:focus-within{
+        box-shadow: 0 1px 6px 0 #171717;
+        border-color: #dfe1e500;
+        background-color: #303134;
+    }
+}
+
+.input-container:hover{
+    box-shadow: 0 1px 6px rgba(32, 33, 36, .28);
+}
+
+.input-container:focus-within{
+    box-shadow: 0 1px 6px rgba(32, 33, 36, .28);
+}
+
+.button-secondary{
+    @apply cursor-pointer rounded bg-light-300 border-1 border-light-300 mr-1 leading-normal py-1 px-3 focus:outline-none dark:bg-dark-200 dark:text-light-200 dark:border-dark-200 hover:border-light-500 dark:hover:border-dark-100 focus:border-blue-500;
+}
+
+.button-secondary:hover{
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .1);
+}
+
+.button-primary{
+    @apply rounded cursor-pointer mx-2 text-center text-white leading-tight tracking-wide min-w-20 py-2 px-4 bg-blue-600 hover:bg-blue-500 active:bg-blue-400 select-none;
+}
+
+.footer{
+    @apply border-t flex bg-light-500 border-light-900 dark:bg-true-gray-900 dark:border-dark-200 flex-grow-0 flex-shrink-0 text-sm min-h-12 w-full text-gray-600 dark:text-light-300 justify-between;
+}
+
+.header{
+    @apply flex flex-grow-0 flex-shrink-0 mt-2 text-sm text-gray-700 dark:text-light-200 justify-end;
+}
+
+.main{
+    @apply flex flex-col flex-grow flex-shrink-0 pb-24 justify-center items-center;
+}

@@ -22,7 +22,7 @@ export default defineConfig({
     !DEV && minifyHtml(),
   ],
   build: {
-    target: 'esnext',
+    target: ['chrome64'],
     polyfillDynamicImport: false,
     cssCodeSplit: false,
     rollupOptions: {

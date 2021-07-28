@@ -1,5 +1,4 @@
 import { defineConfig } from 'vite-plugin-windicss'
-import colors from 'windicss/colors'
 
 export default defineConfig({
   darkMode: 'media',
@@ -7,15 +6,11 @@ export default defineConfig({
     include: ['./**/*.html', './**/*.xht', './**/*.ma', './*.html'],
   },
   theme: {
-    colors,
-    boxShadow: {
-      search: '0 1px 6px rgb(32 33 36 / 28%)',
-      lucky: '0 1px 1px rgb(0 0 0 / 10%)',
-    },
-    borderColor: (theme) => ({
-      ...theme('colors'),
-      search: '#dfe1e5',
-      'search-dark': '#525357'
-    }),
+    extend: {
+      colors: {
+        'google-dark': '#202124',
+        'google-dark-hover': '#303134'
+      }
+    }
   },
 })
