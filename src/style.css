@@ -1,5 +1,5 @@
 .input{
-    @apply outline-none leading-tight w-full px-2 dark:text-light-300 md:min-w-sm dark:bg-google-dark;
+    @apply outline-none leading-tight w-full px-2 dark:text-light-300 md:min-w-sm bg-transparent;
 }
 
 .input-container{
@@ -15,14 +15,6 @@
     .input-container:hover{
         box-shadow: 0 1px 6px 0 #171717;
         border-color: #dfe1e500;
-        background-color: #303134;
-    }
-
-    .input-container:hover .input{
-        background-color: #303134;
-    }
-
-    .input:focus{
         background-color: #303134;
     }
 

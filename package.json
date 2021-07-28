@@ -1,5 +1,6 @@
 {
-  "version": "1.1.0",
+  "version": "1.2.0",
+  "private": "true",
   "name": "google",
   "description": "Давай я поищу в Google вместо тебя",
   "scripts": {
@@ -16,6 +17,7 @@
   "dependencies": {
     "copy-text-to-clipboard": "^3.0.1",
     "malinajs": "^0.6.39",
+    "rosetta": "^1.1.0",
     "windicss": "^3.1.6"
   }
 }
