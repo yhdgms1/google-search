@@ -34,8 +34,6 @@ async function onMount() {
     await sleep(300)
     hint = t('Steps.2')
     searchButton.focus()
-    // In firefox (android) focus sometimes not work
-    searchButton.classList.add('border-blue-500')
     await sleep(2050)
     hint = t('Steps.3')
     await sleep(2050)

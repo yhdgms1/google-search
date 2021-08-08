@@ -3,8 +3,9 @@
 }
 
 .input-container{
-    @apply focus-within:border-opacity-50 border rounded-full flex my-4 text-md w-full p-2 justify-between items-center hover:border-opacity-50 dark:hover:border-opacity-100 dark:hover:google-dark-hover dark:focus-within:google-dark-hover;
+    @apply focus-within:border-opacity-50 border rounded-full flex my-4 text-md w-full justify-between items-center hover:border-opacity-50 dark:hover:border-opacity-100 dark:hover:google-dark-hover dark:focus-within:google-dark-hover;
     border: 1px solid #dfe1e5;
+    padding: .6rem;
 }
 
 @media (prefers-color-scheme: dark) {
