@@ -27,6 +27,9 @@ const typewriter = async string => {
 const sleep = ms => new Promise(f => setTimeout(f, ms))
 
 async function onMount() {
+
+  document.getElementById('layout').classList.remove('hidden')
+
   if (query) {
     hint = t('Steps.1')
     await sleep(300)
@@ -39,7 +42,7 @@ async function onMount() {
     await sleep(2050)
     document.location.href = 'https://google.com/search?q=' + query
   }
-};
+}
 </script>
 
 <div class="input-container">
@@ -89,11 +92,9 @@ async function onMount() {
   <div class="flex w-full p-2 md:hidden justify-between items-center">
     <div class="flex justify-between items-center text-gray-500 dark:text-light-200">
       <svg class="ml-1 text-dark-300 dark:text-light-200" width="24" height="24" focusable="false" fill="none" viewBox="0 0 24 24">
-        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.75 5.75H19.25"></path>
-        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.75 18.25H19.25"></path>
-        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.75 12H19.25"></path>
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.75 5.75h14.5M4.75 18.25h14.5M4.75 12h14.5"/>
       </svg>
-      <p class="font-medium dark:font-normal mx-2 ml-4 text-blue-600 dark:text-blue-500 uppercase underline underline-offset-0.5rem">{t('Header.All')}</p>
+      <p class="font-medium dark:font-normal mx-2 ml-4 text-blue-600 dark:text-blue-400 uppercase underline underline-offset-0.5rem">{t('Header.All')}</p>
       <p class="font-medium dark:font-normal mx-2 uppercase">{t('Header.Images')}</p>
     </div>
     <span class="button-primary">
