@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite'
 import { viteSingleFile } from 'vite-plugin-singlefile'
 import { minifyHtml } from 'vite-plugin-html'
-import { default as malinaPlugin } from 'malinajs/malina-rollup'
+import { vitePlugin as malinaPlugin } from 'malinajs-unplugin'
 import { default as windiCSSPlugin } from 'vite-plugin-windicss'
 import { default as inspectPlugin } from 'vite-plugin-inspect'
 
@@ -12,8 +12,7 @@ export default defineConfig(({ mode }) => {
   return {
     plugins: [
       malinaPlugin({
-        extension: ['ma', 'xht'],
-        displayVersion: false,
+        debugLabel: DEV,
       }),
       windiCSSPlugin({
         scan: {
