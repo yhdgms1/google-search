@@ -13,7 +13,6 @@ export default defineConfig(({ mode }) => {
     plugins: [
       malinaPlugin({
         debugLabel: DEV,
-        hideLabel: !DEV
       }),
       windiCSSPlugin({
         scan: {
@@ -26,7 +25,7 @@ export default defineConfig(({ mode }) => {
     ],
     build: {
       target: ['chrome64'],
-      polyfillDynamicImport: false,
+      polyfillModulePreload: false,
       cssCodeSplit: false,
       rollupOptions: {
         inlineDynamicImports: true,

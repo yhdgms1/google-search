@@ -9,17 +9,17 @@
     "preview": "vite preview"
   },
   "devDependencies": {
-    "malinajs-unplugin": "^0.0.7",
-    "vite": "^2.6.5",
+    "malinajs-unplugin": "^0.0.11",
+    "vite": "^2.6.14",
     "vite-plugin-html": "^2.1.1",
-    "vite-plugin-inspect": "^0.3.8",
+    "vite-plugin-inspect": "^0.3.10",
     "vite-plugin-singlefile": "^0.5.1",
-    "vite-plugin-windicss": "^1.4.9"
+    "vite-plugin-windicss": "^1.5.1"
   },
   "dependencies": {
     "copy-text-to-clipboard": "^3.0.1",
-    "malinajs": "^0.6.45",
+    "malinajs": "^0.6.50",
     "rosetta": "^1.1.0",
-    "windicss": "^3.1.9"
+    "windicss": "^3.2.1"
   }
 }
