@@ -73,7 +73,7 @@ async function onMount() {
     y="90"
     class={styles.logo_text}
   >
-    {* const space = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'}
+    {* const space = '&nbsp;'.repeat(8)}
     {@html locale() === "ru"
       ? `Давай я поищу в ${space} вместо тебя`
       : `Let me ${space} that for you`}
