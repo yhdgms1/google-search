@@ -1,5 +1,4 @@
-import App from './App.xht'
-import 'windi.css'
-import './style.css'
+import App from "./App.xht";
+import "./global.css";
 
-App(document.getElementById('app'))
+document.getElementById("app")!.appendChild(App().$dom);

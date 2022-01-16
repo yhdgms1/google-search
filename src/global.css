@@ -1,0 +1,115 @@
+* {
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+header {
+  display: flex;
+  flex-grow: 0;
+  flex-shrink: 0;
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: rgb(55, 65, 81);
+  justify-content: flex-end;
+}
+
+footer {
+  display: flex;
+  justify-content: space-between;
+  border-top-width: 1px;
+  background: rgb(242, 242, 242);
+  border-top: 1px solid rgb(221, 225, 227);
+  flex-grow: 0;
+  flex-shrink: 0;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  min-height: 3rem;
+  width: 100%;
+  color: rgba(75, 85, 99);
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  flex-grow: 1;
+  padding-bottom: 6rem;
+}
+
+.google-logo {
+  margin: 0 auto;
+  min-height: 6rem;
+  width: 66.666667%;
+  transform: scale(1.25);
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  margin-top: -5rem;
+  width: 100%;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 8rem;
+  padding: 0 0.5rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background: #202124;
+  }
+
+  header {
+    color: rgb(250, 250, 250);
+  }
+
+  footer {
+    background: rgb(23, 23, 23);
+    border-color: rgb(50, 50, 50);
+    color: rgb(248, 249, 250);
+  }
+
+  .google-logo path,
+  .google-logo g,
+  .google-logo use {
+    fill: rgb(250, 250, 250);
+  }
+}
+
+@media (min-width: 640px) {
+  .google-logo {
+    transform: none;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    width: 36rem;
+  }
+
+  #app {
+    width: 36rem;
+  }
+}

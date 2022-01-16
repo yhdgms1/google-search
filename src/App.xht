@@ -1,6 +1,7 @@
 <script>
-import copy from 'copy-text-to-clipboard';
-import { t, locale } from './i18n';
+import copy from 'copy-text-to-clipboard'; //!no-autosubscribe
+import { t, locale } from './i18n'; //!no-autosubscribe
+import styles from './styles.module.css'; //!no-autosubscribe
 
 let hint = t(['Tips', 'Enter a query and click the search button']),
   value = '',
@@ -27,9 +28,6 @@ const typewriter = async string => {
 const sleep = ms => new Promise(f => setTimeout(f, ms))
 
 async function onMount() {
-
-  document.getElementById('layout').classList.remove('hidden')
-
   if (query) {
     hint = t('Steps.1')
     await sleep(300)
@@ -45,26 +43,26 @@ async function onMount() {
 }
 </script>
 
-<div class="input-container">
-  <svg class="ml-1" width="24" focusable="false" viewBox="0 0 22 22">
+<div class={styles.input_container}>
+  <svg class={styles.search_icon} width="24" focusable="false" viewBox="0 0 22 22">
     <path fill="#9aa0a6" d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path>
   </svg>
-  <input type="text" class="input" placeholder="" autofocus title="Поиск" readonly={!!query} :value on:keypress|enter={submit}>
-  <svg class="mr-1 hidden md:block" width="24" focusable="false" viewBox="0 0 22 22">
+  <input type="text" class={styles.input} placeholder="" autofocus title="Поиск" readonly={!!query} :value on:keypress|enter={submit}>
+  <svg class={styles.mic_icon} width="24" focusable="false" viewBox="0 0 22 22">
     <path fill="#4285f4" d="m12 15c1.66 0 3-1.31 3-2.97v-7.02c0-1.66-1.34-3.01-3-3.01s-3 1.34-3 3.01v7.02c0 1.66 1.34 2.97 3 2.97z"></path>
     <path fill="#34a853" d="m11 18.08h2v3.92h-2z"></path>
     <path fill="#fbbc05" d="m7.05 16.87c-1.27-1.33-2.05-2.83-2.05-4.87h2c0 1.45 0.56 2.42 1.47 3.38v0.32l-1.15 1.18z"></path>
     <path fill="#ea4335" d="m12 16.93a4.97 5.25 0 0 1 -3.54 -1.55l-1.41 1.49c1.26 1.34 3.02 2.13 4.95 2.13 3.87 0 6.99-2.92 6.99-7h-1.99c0 2.92-2.24 4.93-5 4.93z"></path>
   </svg>
 </div>
-<div class="flex text-center">
-  <button #searchButton type="button" class="button-secondary" on:click={submit}>{t('Google Search')}</button>
-  <div class="button-secondary">{t("I'm Feeling Lucky")}</div>
+<div>
+  <button #searchButton type="button" class={styles.button_secondary} on:click={submit}>{t('Google Search')}</button>
+  <div class={styles.button_secondary} aria-hidden="true">{t("I'm Feeling Lucky")}</div>
 </div>
-<p class="mt-4 text-green-700 dark:text-green-500">{hint}</p>
+<p class={styles.hint}>{hint}</p>
 {#if link}
-  <input class="mb-1 py-2 px-4 dark:text-light-300 w-2/3 dark:bg-dark-400" type="text" value={link} readonly/>
-  <button on:click={copy(link)} class="button-primary">
+  <input class={styles.link} type="text" value={link} readonly/>
+  <button on:click={copy(link)} class={styles.button_primary}>
     {t('Copy')}
   </button>
 {/if}
@@ -73,48 +71,42 @@ async function onMount() {
   <text
     x={locale() === "ru" ? "60" : "155"}
     y="90"
-    class="font-sans text-xl"
+    class={styles.logo_text}
   >
+    {* const space = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'}
     {@html locale() === "ru"
-      ? `Давай я поищу в &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; вместо тебя`
-      : `Let me &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; that for you`}
+      ? `Давай я поищу в ${space} вместо тебя`
+      : `Let me ${space} that for you`}
   </text>
 </malina:portal>
 
 <malina:portal mount={document.querySelector('header')}>
-  <div class="items-center hidden md:flex">
-    <span class="p-3 block">{t('Header.Gmail')}</span>
-    <span class="p-3 block">{t('Header.Images')}</span>
-    <span class="button-primary">
-      {t('Header.sign in')}
-    </span>
+  <div class={styles.header_md}>
+    <span class={styles.text_block}>{t('Header.Gmail')}</span>
+    <span class={styles.text_block}>{t('Header.Images')}</span>
   </div>
-  <div class="flex w-full p-2 md:hidden justify-between items-center">
-    <div class="flex justify-between items-center text-gray-500 dark:text-light-200">
-      <svg class="ml-1 text-dark-300 dark:text-light-200" width="24" height="24" focusable="false" fill="none" viewBox="0 0 24 24">
-        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.75 5.75h14.5M4.75 18.25h14.5M4.75 12h14.5"/>
-      </svg>
-      <p class="font-medium dark:font-normal mx-2 ml-4 text-blue-600 dark:text-blue-400 uppercase underline underline-offset-0.5rem">{t('Header.All')}</p>
-      <p class="font-medium dark:font-normal mx-2 uppercase">{t('Header.Images')}</p>
-    </div>
-    <span class="button-primary">
-      {t('Header.sign in')}
-    </span>
+  <div class={styles.header_sm}>
+    <svg class={styles.menu_icon} width="24" height="24" focusable="false" fill="none" viewBox="0 0 24 24">
+      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.75 5.75h14.5M4.75 18.25h14.5M4.75 12h14.5"/>
+    </svg>
+    <p class="{styles.header_sm__text} {styles.header_sm__text_active}">{t('Header.All')}</p>
+    <p class={styles.header_sm__text}>{t('Header.Images')}</p>
   </div>
+  <span class={styles.button_primary}>{t('Header.sign in')}</span>
 </malina:portal>
 
 <malina:portal mount={document.querySelector('footer')}>
-  <div class="hidden md:flex">
-    <span class="p-3 block">{t('Footer.Advertising')}</span>
-    <span class="p-3 block">{t('Footer.Business')}</span>
-    <span class="p-3 block">{t('Footer.How Search works')}</span>
+  <div class={styles.footer_md}>
+    <span class={styles.text_block}>{t('Footer.Advertising')}</span>
+    <span class={styles.text_block}>{t('Footer.Business')}</span>
+    <span class={styles.text_block}>{t('Footer.How Search works')}</span>
   </div>
-  <div class="hidden md:flex">
-    <span class="p-3 block">{t('Footer.Privacy')}</span>
-    <span class="p-3 block">{t('Footer.Terms')}</span>
-    <span class="p-3 block">{t('Footer.Settings')}</span>
+  <div class={styles.footer_md}>
+    <span class={styles.text_block}>{t('Footer.Privacy')}</span>
+    <span class={styles.text_block}>{t('Footer.Terms')}</span>
+    <span class={styles.text_block}>{t('Footer.Settings')}</span>
   </div>
-  <div class="flex w-full md:hidden justify-center items-center">
+  <div class={styles.footer_location}>
     <svg width="16" height="16" fill="none" viewBox="0 0 24 24">
       <circle cx="12" cy="12" r="7.25" fill="currentColor"></circle>
     </svg>
