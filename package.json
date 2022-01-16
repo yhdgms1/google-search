@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "devDependencies": {
-    "malinajs-unplugin": "^0.0.17",
+    "malinajs-unplugin": "^0.0.18",
     "vite": "^2.7.12",
     "vite-plugin-html": "^2.1.2",
     "vite-plugin-inspect": "^0.3.13",
