@@ -5,12 +5,13 @@ const i18n = rosetta(dict);
 
 const isRussian = navigator.language.toLowerCase().includes("ru");
 
-document.documentElement.setAttribute("lang", isRussian ? "ru" : "en");
-
 if (!isRussian) {
   document.title = "Let me Google that for you";
+  document.documentElement.setAttribute("lang", "en");
 }
 
-i18n.locale(isRussian ? "ru" : "en");
+const { t, locale } = i18n;
 
-export const { t, locale, set, table } = i18n;
+locale(isRussian ? "ru" : "en");
+
+export { t, locale };
