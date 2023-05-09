@@ -2,7 +2,7 @@ import { defineConfig } from "vite";
 import { viteSingleFile } from "vite-plugin-singlefile";
 import { createHtmlPlugin } from "vite-plugin-html";
 import { vitePlugin as malinaPlugin } from "malinajs-unplugin";
-import { murmurHashV3 } from "murmurhash-es";
+import { hash } from "ohash";
 
 export default defineConfig(({ mode }) => {
   const DEV = mode === "development";
@@ -21,21 +21,23 @@ export default defineConfig(({ mode }) => {
     build: {
       minify: "terser",
       target: ["chrome64"],
-      polyfillModulePreload: false,
+      modulePreload: {
+        polyfill: false
+      },
       cssCodeSplit: false,
       rollupOptions: {
         output: {
           inlineDynamicImports: true,
-          manualChunks: null,
+          manualChunks: undefined,
         },
       },
     },
     css: {
       modules: {
-        generateScopedName: (name, filename, css) => {
-          const hash = murmurHashV3(name + filename, 0x9747b28c).toString(36);
+        generateScopedName: (name, filename) => {
+          const hashed = hash(name + filename);
 
-          return mode === "development" ? `${name}_${hash}` : `_${hash}`;
+          return mode === "development" ? `${name}_${hashed}` : `_${hashed}`;
         },
       },
     },
