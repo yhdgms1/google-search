@@ -1,12 +1,14 @@
 <script>
 import copy from 'copy-text-to-clipboard'; //!no-autosubscribe
 import { t, locale } from './i18n'; //!no-autosubscribe
+import { time } from './time'; //!no-autosubscribe
 import styles from './styles.module.css'; //!no-autosubscribe
 
 let hint = t(['Tips', 'Enter a query and click the search button']),
   value = '',
   link = '',
-  searchButton
+  searchButton,
+  inputElement
 
 const query = new URL(document.location.href).searchParams.get('q')
 
@@ -17,12 +19,18 @@ const submit = () => {
   }
 }
 
-const type = (letter = '', delay) => new Promise(resolve => setTimeout(() => resolve((value += letter)), delay))
+const typewriter = async (string) => {
+  await time(
+    [...string],
+    (letter) => {
+      inputElement.value += letter;
+      inputElement.scrollLeft = inputElement.scrollWidth;
 
-const typewriter = async string => {
-  for (const letter of string) {
-    await type(letter, Math.min(100 * Math.random() + 100, 140))
-  }
+      inputElement.focus();
+      inputElement.setSelectionRange(inputElement.value.length, inputElement.value.length);
+    },
+    () => Math.min(100 * Math.random() + 100, 140)
+  );
 }
 
 const sleep = ms => new Promise(f => setTimeout(f, ms))
@@ -38,7 +46,7 @@ async function onMount() {
     await sleep(2050)
     hint = t('Steps.3')
     await sleep(2050)
-    document.location.href = 'https://google.com/search?q=' + query
+    document.location.href = 'https://google.com/search?q=' + encodeURIComponent(query)
   }
 }
 </script>
@@ -47,21 +55,24 @@ async function onMount() {
   <svg class={styles.search_icon} width="24" focusable="false" viewBox="0 0 22 22">
     <path fill="#9aa0a6" d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path>
   </svg>
-  <input type="text" class={styles.input} placeholder="" autofocus title="Поиск" readonly={!!query} :value on:keypress|enter={submit}>
+  <input #inputElement type="text" class={styles.input} placeholder="" autofocus title="Поиск" readonly={!!query} on:input={() => value = inputElement.value} on:keypress|enter={submit}>
   <svg class={styles.mic_icon} width="24" focusable="false" viewBox="0 0 22 22">
-    <path fill="#4285f4" d="m12 15c1.66 0 3-1.31 3-2.97v-7.02c0-1.66-1.34-3.01-3-3.01s-3 1.34-3 3.01v7.02c0 1.66 1.34 2.97 3 2.97z"></path>
-    <path fill="#34a853" d="m11 18.08h2v3.92h-2z"></path>
-    <path fill="#fbbc05" d="m7.05 16.87c-1.27-1.33-2.05-2.83-2.05-4.87h2c0 1.45 0.56 2.42 1.47 3.38v0.32l-1.15 1.18z"></path>
-    <path fill="#ea4335" d="m12 16.93a4.97 5.25 0 0 1 -3.54 -1.55l-1.41 1.49c1.26 1.34 3.02 2.13 4.95 2.13 3.87 0 6.99-2.92 6.99-7h-1.99c0 2.92-2.24 4.93-5 4.93z"></path>
+    <path fill="#4285f4" d="m12 15c1.66 0 3-1.31 3-2.97v-7.02c0-1.66-1.34-3.01-3-3.01s-3 1.34-3 3.01v7.02c0 1.66 1.34 2.97 3 2.97z" />
+    <path fill="#34a853" d="m11 18.08h2v3.92h-2z" />
+    <path fill="#fbbc05" d="m7.05 16.87c-1.27-1.33-2.05-2.83-2.05-4.87h2c0 1.45 0.56 2.42 1.47 3.38v0.32l-1.15 1.18z" />
+    <path fill="#ea4335" d="m12 16.93a4.97 5.25 0 0 1 -3.54 -1.55l-1.41 1.49c1.26 1.34 3.02 2.13 4.95 2.13 3.87 0 6.99-2.92 6.99-7h-1.99c0 2.92-2.24 4.93-5 4.93z" />
   </svg>
 </div>
+
 <div>
   <button #searchButton type="button" class={styles.button_secondary} on:click={submit}>{t('Google Search')}</button>
   <div class={styles.button_secondary} aria-hidden="true">{t("I'm Feeling Lucky")}</div>
 </div>
+
 <p class={styles.hint}>{hint}</p>
+
 {#if link}
-  <input class={styles.link} type="text" value={link} readonly/>
+  <input class={styles.link} type="text" value={link} readonly />
   <button on:click={copy(link)} class={styles.button_primary}>
     {t('Copy')}
   </button>
